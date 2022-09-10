@@ -1,5 +1,5 @@
 public class WordBank {
-    String[] words = new String[]{"resink",
+    public  static String[] words = new String[]{"resink",
             "transversomedial",
             "pharyngopathy",
             "postmineral",
