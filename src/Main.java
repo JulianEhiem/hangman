@@ -3,13 +3,12 @@ import java.util.Scanner;
 
 public class Main {
     static String[] bank = WordBank.words;
-    static char currentGuess;
+    static char currentGuess=' ';
     static String selectedWord = "";
     static int failedGuesses = 0;
     static String[] d = {"[]========\n","[]\n","[]\n","[]\n","[]\n","[]\n","[]\n","[]\n","[]========\n"};
     static String[] d1 = {"[]========?\n","[]........|\n","[]........O\n","[]........|\n","[]......./|\n","[]......./|\\\n","[]........|\n","[]......./ \\\n","[]\n","[]\n","[]========\n"};
     public static void main(String[] args) {
-        System.out.println("Hello world!");
         gameStart();
     }
     public static void gameStart() {
@@ -34,9 +33,7 @@ public class Main {
     public static void printer() {
         StringBuilder word = new StringBuilder();
 
-        for (int i = 0; i < selectedWord.length(); i++) {
-            word.append("_.");
-        }
+        word.append("_.".repeat(selectedWord.length()));
         System.out.println(word);
 
     }
