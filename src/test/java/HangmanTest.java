@@ -36,13 +36,13 @@ class HangmanTest {
     @DisplayName("Hidden word should be updated on correct guess")
     void hiddenWordShouldBeUpdatedOnCorrectGuess(){
         assertAll(
-                () -> assertEquals("dancing",Hangman.updatedHiddenWord("dancing", "dancing")),
-                () -> assertEquals("__ss_ss____",Hangman.updatedHiddenWord("mississippi", "s"))
+                () -> assertEquals("dancing",Hangman.updatedHiddenWord("dancing", "_______", "dancing")),
+                () -> assertEquals("__ss_ss____",Hangman.updatedHiddenWord("mississippi", "___________", "s"))
         );
     }
 
     @Test
-    @DisplayName("The gameboard is created")
+    @DisplayName("The gameBoard should be created")
     void createGameBoard(){
         final List<String> result = Hangman.createGameBoard();
         assertAll(
@@ -52,10 +52,13 @@ class HangmanTest {
     }
 
     @Test
-    @DisplayName("The gameboard is updated")
+    @DisplayName("The gameBoard should be updated and should be different from original gameBoard")
     void updateGameBoard(){
-        String[] board = {"0","0","0","0","0","0","0","0"};
-//        assertEquals(new String[]{"0", "0", "0", "0", "0", "5", "0", "0"}, Hangman.updatedGameBoard(board, 1));
+        assertAll(
+                () -> assertEquals(Hangman.createGameBoard().size(), Hangman.updatedGameBoard(8).size()),
+                () -> assertEquals(Hangman.createGameBoard(), Hangman.updatedGameBoard(0)),
+                () -> assertNotEquals(Hangman.createGameBoard(), Hangman.updatedGameBoard(1))
+        );
     }
 
 }
