@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Stream;
@@ -8,16 +9,16 @@ public class Hangman {
 //    static String gameWord = "";
 //    static String hiddenWord;
 //    static int failedGuessCount = 0;
-//    static String[] gameBoord = {"[]========?\n","[]\n","[]\n","[]\n","[]\n","[]\n","[]\n","[]\n","[]========\n"};
 //    static String[] failBoard = {"[]========?\n","[]........|\n","[]........O\n","[]........|\n","[]......./|\n","[]......./|\\\n","[]........|\n","[]......./ \\\n","[]\n","[]\n","[]========\n"};
     public static void main(String[] args) {
         gameStart();
     }
     public static void gameStart() {
         System.out.println("Welcome to hangman! \n\n" + "You have 8 guesses to guess the word I chose. Good luck!");
+        ArrayList<String>  gameBoard = createGameBoard();
         String gameWord = computerChoice(wordBank);
         String hiddenWord = maskWord(gameWord);
-        int failedGuessesLeft = 8;
+        int failedGuesses = 0;
         boolean continueGame = true;
         do {
             String playerGuess = playerChooses();
@@ -25,8 +26,8 @@ public class Hangman {
                 hiddenWord = updatedHiddenWord(gameWord, playerGuess);
             }else {
                 System.out.println("test");
-//                updatedGameBoard();
-//                update failed guess count
+                failedGuesses++;
+//                gameBoard = updatedGameBoard(gameBoard, failedGuesses);
             }
 //            display game board
 //            continueGame = checkGameStatus();
@@ -34,7 +35,34 @@ public class Hangman {
 
 
 //        setHiddenWord();
-    };
+    }
+
+    public static ArrayList<String>  createGameBoard() {
+//        StringBuilder boardString = new StringBuilder();
+        ArrayList<String> board = new ArrayList<>();
+        board.add("[]========?\n");
+        board.add("[]\n");
+        board.add("[]\n");
+        board.add("[]\n");
+        board.add("[]\n");
+        board.add("[]\n");
+        board.add("[]\n");
+        board.add("[]\n");
+        board.add("[]========\n");
+
+//        for (int i = 0; i < board.size(); i++) {
+//            boardString.append(board.get(i));
+//        }
+        return board;
+    }
+
+//    public static String updatedGameBoard(int failCount) {
+//        ["[]========?\n","[]\n","[]\n","[]\n","[]\n","[]\n","[]\n","[]\n","[]========\n"]
+//        board.add()
+//        return board;
+//    }
+
+    ;
 //    public static void gameIntro() {
 //        System.out.println("Welcome to hangman! \n\n" + "You have 8 guesses to guess the word I chose. Good luck!");
 //        computerChooses();
@@ -127,7 +155,7 @@ public class Hangman {
         if(guess.length() != 1) {
             return word.equals(guess);
         } else {
-            return word.indexOf(guess) >= 0;
+            return word.contains(guess);
         }
     }
     public static String updatedHiddenWord(String gameWord, String playerGuess) {
@@ -141,7 +169,7 @@ public class Hangman {
             for (String s : word) {
                 if (s.equals(playerGuess)) {
                     newHidden.append(playerGuess);
-                } else if(s.equals("_")) {
+                } else {
                     newHidden.append("_");
                 }
             }
